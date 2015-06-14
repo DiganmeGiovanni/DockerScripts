@@ -1,8 +1,10 @@
-#
+#!/bin/bash
+
+# ***********************************************************************************
 # Created on: Sat, Jun 13, 2015
 # @author Giovanni Aguirre | @DiganmeGiovanni
 #
-# This script users the image 'diganmegiovanni/centos7_nodejs:v1' to create and start
+# This script uses the image 'diganmegiovanni/centos7_nodejs:v1' to create and start
 # a container running Centos 7, nodejs and npm.
 #
 # -----------------------------------------------------------------------------------
@@ -44,7 +46,7 @@ askLocalDir ()
         LOCAL_DIR_TOSHARE=$LOCALDIR
         return 1
     else
-        echo "$LOCALDIR is not a valid directory, try again"
+        echo " *WARNING: $LOCALDIR is not a valid directory, try again"
         askLocalDir
     fi
 }

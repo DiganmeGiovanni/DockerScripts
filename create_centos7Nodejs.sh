@@ -51,7 +51,7 @@ askLocalDir ()
     fi
 }
 askLocalDir
-echo "Sharing '$LOCAL_DIR_TOSHARE' at '/source' path on container"
+echo "Sharing '$LOCAL_DIR_TOSHARE' at '/sources' path on container"
 
 # Local port to execute nodejs apps
 echo
@@ -79,4 +79,4 @@ echo "docker run -t -i -p $LOCAL_NODEJS_PORT:$CONTAINER_NODEJS_PORT --name $CONT
 echo
 echo "executing command ... ..."
 echo
-docker run -t -i -p $LOCAL_NODEJS_PORT:$CONTAINER_NODEJS_PORT --name $CONTAINER_NAME -v $LOCAL_DIR_TOSHARE:/source diganmegiovanni/centos7_nodejs:v1 /bin/bash
+docker run -t -i -p $LOCAL_NODEJS_PORT:$CONTAINER_NODEJS_PORT --name $CONTAINER_NAME -v $LOCAL_DIR_TOSHARE:/sources diganmegiovanni/centos7_nodejs:v1 /bin/bash

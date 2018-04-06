@@ -9,7 +9,7 @@
 
 ##
 ## Instead I only use:
-docker run --rm -v $(pwd):/app -v ~/.ssh:/root/.ssh composer/composer $@
+docker run --rm -v /home/giovanni/Sources/Php/TEAProjectManager:/app -v ~/.ssh:/root/.ssh composer/composer $@
 
 ## 
 ## Now execute this script as if it be the composer binary

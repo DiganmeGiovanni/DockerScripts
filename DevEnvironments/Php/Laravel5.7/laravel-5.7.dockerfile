@@ -1,15 +1,5 @@
 FROM php:7.2-fpm-alpine3.9
 
-# RUN apt-get update \
-#     && apt-get install -y libmcrypt-dev libxml2-dev mysql-client \
-#     && pecl install mcrypt-1.0.1 \
-#     && docker-php-ext-enable mcrypt \
-#     && docker-php-ext-install \
-#         mbstring \
-#         pdo \
-#         pdo_mysql \
-#         tokenizer \
-#         xml
 RUN apk --update add \
                 libxml2-dev \
                 php7-bcmath \
@@ -32,4 +22,3 @@ RUN apk --update add \
         && rm -rf /var/cache/apk/*
 
 WORKDIR /var/www
-

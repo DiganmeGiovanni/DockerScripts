@@ -13,17 +13,18 @@
 # 5. Ask to user for the MySQL server version to use on container
 #
 
-CONTAINER_NAME="dmysql"
+CONTAINER_NAME="mysql"
 MYSQL_LOCAL_PORT="3306"
 MYSQL_ROOT_PASSWORD="root"
-MYSQL_DATABASE="default"
 MYSQL_VERSION="latest"
-MYSQL_AVAILABLE_VERSIONS="[latest, 8.0.11, 8.0, 8, | 5.7.22, 5.7, 5 | 5.6.40, 5.6]"
+MYSQL_AVAILABLE_VERSIONS="[latest, 8.0.15, 8.0, 8, | 5.7.25, 5.7, 5 | 5.6.43, 5.6]"
+CUSTOM_DATA_DIR=false
+DATA_DIR=""
 DOCKER_COMMAND="docker run -ti"
 
 # Asking for container's name
 echo
-echo "Write a valid name for the new container, default is 'dmysql'"
+echo "Write a valid name for the new container, default is $CONTAINER_NAME"
 read -p  "Container name: " TMP_CONTNAME
 if ! [ -z "$TMP_CONTNAME" ];
 then
@@ -50,16 +51,6 @@ then
     MYSQL_ROOT_PASSWORD=$TMP_PASSWORD
 fi
 
-# Ask for a default database to be created
-echo
-echo "Default database to be created. Default is 'default': "
-read -p "Default database name: " TMP_DEFAULT_DATABASE
-if ! [ -z "$TMP_DEFAULT_DATABASE" ];
-then
-    MYSQL_DATABASE=$TMP_DEFAULT_DATABASE
-fi
-echo " Name for default database will be: $MYSQL_DATABASE"
-
 # Ask for a mysql version to be used
 echo
 echo "Which mysql version should be used? Default is [latest]: "
@@ -71,9 +62,21 @@ then
 fi
 echo " MySQL server version will be: $MYSQL_VERSION"
 
+# Ask for custom data dir
+echo
+echo "Indicate a local route where to store data (If empty data will be stored on container)"
+read -p " Data directory: " DATA_DIR
+if ! [ -z "$DATA_DIR" ];
+then
+    CUSTOM_DATA_DIR=true
+fi
+
 ## Assembly command
 DOCKER_COMMAND="$DOCKER_COMMAND -p $MYSQL_LOCAL_PORT:3306 "
 DOCKER_COMMAND="$DOCKER_COMMAND --name $CONTAINER_NAME "
+if $CUSTOM_DATA_DIR ; then
+    DOCKER_COMMAND="$DOCKER_COMMAND -v $DATA_DIR:/var/lib/mysql "
+fi
 DOCKER_COMMAND="$DOCKER_COMMAND -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD "
 DOCKER_COMMAND="$DOCKER_COMMAND -e MYSQL_DATABASE=$MYSQL_DATABASE "
 DOCKER_COMMAND="$DOCKER_COMMAND -d mysql:$MYSQL_VERSION"
@@ -82,8 +85,6 @@ DOCKER_COMMAND="$DOCKER_COMMAND -d mysql:$MYSQL_VERSION"
 echo
 echo "Creating container with command:"
 echo $DOCKER_COMMAND
-echo
-echo "executing command ..."
 eval $DOCKER_COMMAND
 
 echo "Container started successfully"

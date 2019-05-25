@@ -1,0 +1,15 @@
+version: '3'
+
+services: 
+  app:
+    build:
+      context: ../
+      dockerfile: ./docker/app.docker
+    image: PROJECT_NAME:app
+    command: python PROJECT_NAME/manage.py runserver 0.0.0.0:8000
+    container_name: PROJECT_NAME-app
+    restart: on-failure
+    volumes:
+    - ..:/app
+    ports:
+    - "PROJECT_PORT:8000"

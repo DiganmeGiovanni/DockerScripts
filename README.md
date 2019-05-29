@@ -1,6 +1,6 @@
 Docker Scripts
 ==============
-Helper and utility scripts to my daily development workflow with
+Helper and utility scripts for my daily development workflow with
 docker containers.<br/>
 *This is my swiss knife for docker development*
 
@@ -31,7 +31,7 @@ The `executables` directory contains scripts that I usually add to
 my aliases and use it to run apps like if it were installed on my
 system but behind the scenes it are running on docker
 
-Currently a can run:
+Currently i can run:
 - node
 - npm
 - composer
